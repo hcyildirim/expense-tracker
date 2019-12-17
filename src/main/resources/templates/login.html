@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Login page</title>
+    <title>Login</title>
 </head>
 <body>
-<h1>Login page</h1>
+<h1>Login</h1>
 <form th:action="@{/login}" modelAttribute="userForm" method="post">
     <div th:if="${param.error}">
         <div class="alert alert-danger">

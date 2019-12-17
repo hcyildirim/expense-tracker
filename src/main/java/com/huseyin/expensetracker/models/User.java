@@ -20,6 +20,11 @@ public class User {
     @ManyToMany
     private Set<Role> roles;
 
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "user")
+    private Set<Transaction> transactions;
+
     public Long getId() {
         return id;
     }
@@ -58,5 +63,13 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Set<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(Set<Transaction> transactions) {
+        this.transactions = transactions;
     }
 }

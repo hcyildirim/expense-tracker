@@ -21,19 +21,19 @@ public class UserController {
     @Autowired
     private UserValidator userValidator;
 
-    @GetMapping("/registration")
-    public String registration(Model model) {
+    @GetMapping("/register")
+    public String register(Model model) {
         model.addAttribute("userForm", new User());
 
-        return "registration";
+        return "register";
     }
 
-    @PostMapping("/registration")
-    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
+    @PostMapping("/register")
+    public String register(@ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
         userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            return "registration";
+            return "register";
         }
 
         userService.save(userForm);
