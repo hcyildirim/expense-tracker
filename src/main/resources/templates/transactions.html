@@ -1,26 +1,28 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{fragments/main_layout}">
 <head>
     <title>Transactions</title>
 </head>
 <body>
-
-<h2>Transaction list</h2>
-
-<table>
-    <tr>
-        <th>#</th>
-        <th>Description</th>
-        <th>Type</th>
-        <th>Amount</th>
-    </tr>
-    <tr th:each="transaction: ${transactions}">
-        <td th:text="${transaction.id}" />
-        <td th:text="${transaction.description}" />
-        <td th:text="${transaction.type}" />
-        <td th:text="${transaction.amount}" />
-    </tr>
-</table>
-
+    <div layout:fragment="content" class="container">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="transaction: ${transactions}">
+                    <td th:text="${transaction.id}" />
+                    <td th:text="${transaction.description}" />
+                    <td th:text="${transaction.type}" />
+                    <td th:text="${transaction.amount}" />
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

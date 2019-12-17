@@ -22,7 +22,7 @@ public class TransactionController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/transactions")
+    @GetMapping({"/", "/transactions"})
     public String transactions(Model model) {
         model.addAttribute("transactions", transactionRepository.findAll());
         return "transactions";

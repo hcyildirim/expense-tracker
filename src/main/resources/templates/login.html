@@ -1,28 +1,35 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{fragments/main_layout}">
 <head>
     <title>Login</title>
 </head>
 <body>
-<h1>Login</h1>
-<form th:action="@{/login}" modelAttribute="userForm" method="post">
-    <div th:if="${param.error}">
-        <div class="alert alert-danger">
-            Invalid username or password.
+<div layout:fragment="content" class="container">
+    <form th:action="@{/login}" modelAttribute="userForm" method="post">
+        <div th:if="${param.error}">
+            <div class="alert alert-danger">
+                Invalid username or password.
+            </div>
         </div>
-    </div>
 
-    <div th:if="${param.logout}">
-        <div class="alert alert-info">
-            You have been logged out.
+        <div th:if="${param.logout}">
+            <div class="alert alert-info">
+                You have been logged out.
+            </div>
         </div>
-    </div>
 
-    <label for="username">Username</label>:
-    <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
-    <label for="password">Password</label>:
-    <input type="password" id="password" name="password" /> <br />
-    <input type="submit" value="Log in" />
-</form>
+        <div class="form-group">
+            <label for="username">Username</label>:
+            <input type="text" class="form-control" id="username" name="username" autofocus="autofocus" />
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>:
+            <input type="password" class="form-control" id="password" name="password" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Log In</button>
+    </form>
+</div>
 </body>
 </html>

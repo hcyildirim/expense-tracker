@@ -40,16 +40,11 @@ public class UserController {
 
         securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
 
-        return "redirect:/welcome";
+        return "redirect:/transactions";
     }
 
     @GetMapping("/login")
     public String login() {
         return "login";
-    }
-
-    @GetMapping({"/", "/welcome"})
-    public String welcome() {
-        return "welcome";
     }
 }

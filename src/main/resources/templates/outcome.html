@@ -1,18 +1,24 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{fragments/main_layout}">
 <head>
     <title>Outcome</title>
 </head>
 <body>
-<h1>Add Outcome</h1>
-<form th:action="@{/outcome}" modelAttribute="outcomeForm" method="post">
-    <label for="description">Description</label>:
-    <input type="text" id="description" name="description" autofocus="autofocus" /> <br />
+<div layout:fragment="content" class="container">
+    <form th:action="@{/outcome}" modelAttribute="outcomeform" method="post">
 
-    <label for="amount">Amount</label>:
-    <input type="number" id="amount" name="amount" min="1" step="any" /> <br />
+        <div class="form-group">
+            <label for="description">Description</label>:
+            <input type="text" class="form-control" id="description" name="description" autofocus="autofocus" />
+        </div>
 
-    <input type="submit" value="Add" />
-</form>
+        <div class="form-group">
+            <label for="amount">Amount</label>:
+            <input type="number" class="form-control" id="amount" name="amount" min="1" step="any" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add</button>
+    </form>
+</div>
 </body>
 </html>
