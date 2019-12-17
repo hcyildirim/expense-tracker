@@ -22,6 +22,12 @@ public class TransactionController {
     @Autowired
     private UserRepository userRepository;
 
+    @GetMapping("/transactions")
+    public String transactions(Model model) {
+        model.addAttribute("transactions", transactionRepository.findAll());
+        return "transactions";
+    }
+
     @GetMapping("/income")
     public String income(Model model) {
         model.addAttribute("incomeForm", new Transaction());
@@ -35,9 +41,8 @@ public class TransactionController {
         incomeForm.setType(Transaction.Type.Income);
         transactionRepository.save(incomeForm);
 
-        return "redirect:/welcome";
+        return "redirect:/transactions";
     }
-
 
     @GetMapping("/outcome")
     public String outcome(Model model) {
@@ -52,6 +57,6 @@ public class TransactionController {
         outcomeForm.setType(Transaction.Type.Outcome);
         transactionRepository.save(outcomeForm);
 
-        return "redirect:/welcome";
+        return "redirect:/transactions";
     }
 }
