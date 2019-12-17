@@ -1,8 +1,8 @@
 package com.huseyin.expensetracker.controllers;
 
 import com.huseyin.expensetracker.models.User;
-import com.huseyin.expensetracker.services.SecurityService;
-import com.huseyin.expensetracker.services.UserService;
+import com.huseyin.expensetracker.interfaces.ISecurityService;
+import com.huseyin.expensetracker.interfaces.IUserService;
 import com.huseyin.expensetracker.validators.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class UserController {
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
     @Autowired
-    private SecurityService securityService;
+    private ISecurityService securityService;
 
     @Autowired
     private UserValidator userValidator;
