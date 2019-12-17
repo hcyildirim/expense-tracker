@@ -45,4 +45,13 @@ public class TransactionController {
 
         return "outcome";
     }
+
+    @PostMapping("/outcome")
+    public String outcome(@AuthenticationPrincipal UserDetails userDetails, @ModelAttribute("outcomeForm") Transaction outcomeForm, BindingResult bindingResult) {
+        outcomeForm.setUser(userRepository.findByUsername(userDetails.getUsername()));
+        outcomeForm.setType(Transaction.Type.Outcome);
+        transactionRepository.save(outcomeForm);
+
+        return "redirect:/welcome";
+    }
 }
