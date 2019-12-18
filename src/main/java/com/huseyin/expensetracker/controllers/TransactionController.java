@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class TransactionController {
@@ -23,7 +24,7 @@ public class TransactionController {
     private UserRepository userRepository;
 
     @GetMapping({"/", "/transactions"})
-    public String transactions(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+    public String transactions(@AuthenticationPrincipal UserDetails userDetails, @RequestParam(required = false, name = "filter") String filter, Model model) {
         model.addAttribute("incomeForm", new Transaction());
         model.addAttribute("outcomeForm", new Transaction());
         model.addAttribute("transactions", transactionRepository.findByUsername(userDetails.getUsername()));

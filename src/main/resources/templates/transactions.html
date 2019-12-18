@@ -39,6 +39,18 @@
         </div>
 
         <div class="row">
+            <div class="col md-3 mb-1 d-flex p-0">
+                <div class="dropdown ml-auto">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Filters
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" th:href="@{/transactions(filter='Income')}">Incomes</a>
+                        <a class="dropdown-item" th:href="@{/transactions(filter='Outcome')}">Outcomes</a>
+                    </div>
+                </div>
+            </div>
+
             <table class="table table-striped">
                 <thead>
                 <tr>
