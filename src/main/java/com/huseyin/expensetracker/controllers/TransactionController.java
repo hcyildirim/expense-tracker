@@ -23,8 +23,9 @@ public class TransactionController {
     private UserRepository userRepository;
 
     @GetMapping({"/", "/transactions"})
-    public String transactions(Model model) {
-        model.addAttribute("transactions", transactionRepository.findAll());
+    public String transactions(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        model.addAttribute("transactions", transactionRepository.findByUsername(userDetails.getUsername()));
+
         return "transactions";
     }
 
