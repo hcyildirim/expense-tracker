@@ -4,25 +4,60 @@
     <title>Transactions</title>
 </head>
 <body>
-    <div layout:fragment="content" class="container">
-        <table class="table table-striped">
-            <thead>
+    <div layout:fragment="content" class="container mb-5">
+        <div class="row mb-5">
+            <div class="col">
+                <h2>Income</h2>
+                <hr/>
+                <form th:action="@{/income}" modelAttribute="incomeForm" method="post">
+                    <div class="form-group">
+                        <label>Description</label>:
+                        <input type="text" class="form-control" name="description" autofocus="autofocus" />
+                    </div>
+                    <div class="form-group">
+                        <label>Amount</label>:
+                        <input type="number" class="form-control" name="amount" min="1" step="any" />
+                    </div>
+                    <button type="submit" class="btn btn-success">Add</button>
+                </form>
+            </div>
+            <div class="col">
+                <h2>Outcome</h2>
+                <hr/>
+                <form th:action="@{/outcome}" modelAttribute="outcomeForm" method="post">
+                    <div class="form-group">
+                        <label>Description</label>:
+                        <input type="text" class="form-control" name="description" autofocus="autofocus" />
+                    </div>
+                    <div class="form-group">
+                        <label>Amount</label>:
+                        <input type="number" class="form-control" name="amount" min="1" step="any" />
+                    </div>
+                    <button type="submit" class="btn btn-danger">Add</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <table class="table table-striped">
+                <thead>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Description</th>
                     <th scope="col">Type</th>
                     <th scope="col">Amount</th>
                 </tr>
-            </thead>
-            <tbody>
+                </thead>
+                <tbody>
                 <tr th:each="transaction: ${transactions}">
                     <td th:text="${transaction.id}" />
                     <td th:text="${transaction.description}" />
                     <td th:text="${transaction.type}" />
                     <td th:text="${transaction.amount}" />
                 </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 </html>

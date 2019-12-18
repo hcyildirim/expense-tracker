@@ -24,16 +24,11 @@ public class TransactionController {
 
     @GetMapping({"/", "/transactions"})
     public String transactions(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        model.addAttribute("incomeForm", new Transaction());
+        model.addAttribute("outcomeForm", new Transaction());
         model.addAttribute("transactions", transactionRepository.findByUsername(userDetails.getUsername()));
 
         return "transactions";
-    }
-
-    @GetMapping("/income")
-    public String income(Model model) {
-        model.addAttribute("incomeForm", new Transaction());
-
-        return "income";
     }
 
     @PostMapping("/income")
@@ -43,13 +38,6 @@ public class TransactionController {
         transactionRepository.save(incomeForm);
 
         return "redirect:/transactions";
-    }
-
-    @GetMapping("/outcome")
-    public String outcome(Model model) {
-        model.addAttribute("outcomeForm", new Transaction());
-
-        return "outcome";
     }
 
     @PostMapping("/outcome")

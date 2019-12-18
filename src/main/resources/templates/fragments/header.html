@@ -1,27 +1,22 @@
 <header th:fragment="header" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <!-- Static navbar -->
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
         <div class="container">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">Expense Tracker</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li sec:authorize="isAuthenticated()"><a th:href="@{/transactions}">Transactions</a></li>
-                    <li sec:authorize="isAuthenticated()"><a th:href="@{/income}">Income</a></li>
-                    <li sec:authorize="isAuthenticated()"><a th:href="@{/outcome}">Outcome</a></li>
-                </ul>
-
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav ml-auto">
                     <div sec:authorize="isAuthenticated()" style="display: none;">
                         <form id="logoutForm" th:action="@{/logout}" modelAttribute="logoutForm" method="post">
                         </form>
                     </div>
 
-                    <li sec:authorize="isAuthenticated()"><a href="#" sec:authentication="name"/></li>
-                    <li sec:authorize="isAuthenticated()"><a onclick="document.forms['logoutForm'].submit()">Logout</a></li>
-                    <li sec:authorize="isAnonymous()"><a th:href="@{/login}">Login</a></li>
-                    <li sec:authorize="isAnonymous()"><a th:href="@{/register}">Register</a></li>
+                    <li class="nav-item mx-1" sec:authorize="isAuthenticated()"><a href="#" sec:authentication="name"/></li>
+                    <li class="nav-item mx-1" sec:authorize="isAuthenticated()"><span>|</span></li>
+                    <li class="nav-item mx-1" sec:authorize="isAuthenticated()"><a href="#" onclick="document.forms['logoutForm'].submit()">Logout</a></li>
+                    <li class="nav-item mx-1" sec:authorize="isAnonymous()"><a th:href="@{/login}">Login</a></li>
+                    <li class="nav-item mx-1" sec:authorize="isAnonymous()"><a th:href="@{/register}">Register</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
