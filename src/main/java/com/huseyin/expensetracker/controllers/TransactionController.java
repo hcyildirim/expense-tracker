@@ -3,6 +3,7 @@ package com.huseyin.expensetracker.controllers;
 import com.huseyin.expensetracker.models.Transaction;
 import com.huseyin.expensetracker.repositories.TransactionRepository;
 import com.huseyin.expensetracker.repositories.UserRepository;
+import com.huseyin.expensetracker.factories.FilterFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,7 +30,12 @@ public class TransactionController {
     public String transactions(@AuthenticationPrincipal UserDetails userDetails, @RequestParam(required = false, name = "filter") String filter, Model model) {
         model.addAttribute("incomeForm", new Transaction());
         model.addAttribute("outcomeForm", new Transaction());
-        model.addAttribute("transactions", transactionRepository.findByUsername(userDetails.getUsername()));
+
+        if (filter == null) {
+            model.addAttribute("transactions", transactionRepository.findByUsername(userDetails.getUsername()));
+        } else {
+            model.addAttribute("transactions", new FilterFactory().getFilter(filter).meets(transactionRepository.findByUsername(userDetails.getUsername())));
+        }
 
         return "transactions";
     }
