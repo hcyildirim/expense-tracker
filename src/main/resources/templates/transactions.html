@@ -53,20 +53,22 @@
 
             <table class="table table-striped">
                 <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Amount</th>
-                </tr>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Created At</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr th:each="transaction: ${transactions}">
-                    <td th:text="${transaction.id}" />
-                    <td th:text="${transaction.description}" />
-                    <td th:text="${transaction.type}" />
-                    <td th:text="${transaction.amount}" />
-                </tr>
+                    <tr th:each="transaction: ${transactions}">
+                        <td th:text="${transaction.id}" />
+                        <td th:text="${transaction.description}" />
+                        <td th:text="${transaction.type}" />
+                        <td th:text="${transaction.amount}" />
+                        <td th:text="${transaction.createdAt}" />
+                    </tr>
                 </tbody>
             </table>
         </div>

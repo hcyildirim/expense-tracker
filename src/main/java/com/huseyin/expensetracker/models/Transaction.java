@@ -2,6 +2,7 @@ package com.huseyin.expensetracker.models;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Entity
 public class Transaction {
@@ -18,6 +19,10 @@ public class Transaction {
 
     @Column(nullable=false)
     private BigDecimal amount;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable=false)
+    private Date createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -66,6 +71,14 @@ public class Transaction {
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
 }

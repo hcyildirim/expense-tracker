@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Date;
+
 @Controller
 public class TransactionController {
 
@@ -36,6 +38,7 @@ public class TransactionController {
     public String income(@AuthenticationPrincipal UserDetails userDetails, @ModelAttribute("incomeForm") Transaction incomeForm, BindingResult bindingResult) {
         incomeForm.setUser(userRepository.findByUsername(userDetails.getUsername()));
         incomeForm.setType(Transaction.Type.Income);
+        incomeForm.setCreatedAt(new Date());
         transactionRepository.save(incomeForm);
 
         return "redirect:/transactions";
@@ -45,6 +48,7 @@ public class TransactionController {
     public String outcome(@AuthenticationPrincipal UserDetails userDetails, @ModelAttribute("outcomeForm") Transaction outcomeForm, BindingResult bindingResult) {
         outcomeForm.setUser(userRepository.findByUsername(userDetails.getUsername()));
         outcomeForm.setType(Transaction.Type.Outcome);
+        outcomeForm.setCreatedAt(new Date());
         transactionRepository.save(outcomeForm);
 
         return "redirect:/transactions";
