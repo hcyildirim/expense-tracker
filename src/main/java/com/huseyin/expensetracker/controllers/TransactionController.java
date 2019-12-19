@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class TransactionController {
@@ -31,11 +33,20 @@ public class TransactionController {
         model.addAttribute("incomeForm", new Transaction());
         model.addAttribute("outcomeForm", new Transaction());
 
+        List<Transaction> transactions;
+
         if (filter == null) {
-            model.addAttribute("transactions", transactionRepository.findByUsername(userDetails.getUsername()));
+            transactions = transactionRepository.findByUsername(userDetails.getUsername());
         } else {
-            model.addAttribute("transactions", new FilterFactory().getFilter(filter).meets(transactionRepository.findByUsername(userDetails.getUsername())));
+            transactions = new FilterFactory().getFilter(filter).meets(transactionRepository.findByUsername(userDetails.getUsername()));
         }
+
+        BigDecimal sum = transactions.stream()
+                .map(Transaction::getAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        model.addAttribute("transactions", transactions);
+        model.addAttribute("sum", sum);
 
         return "transactions";
     }

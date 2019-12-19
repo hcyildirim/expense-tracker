@@ -66,6 +66,10 @@ public class Transaction {
     }
 
     public BigDecimal getAmount() {
+        if(getType() == Type.Outcome) {
+            return amount.multiply(BigDecimal.valueOf(-1));
+        }
+
         return amount;
     }
 
