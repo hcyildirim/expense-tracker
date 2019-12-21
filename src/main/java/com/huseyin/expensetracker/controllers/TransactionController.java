@@ -1,8 +1,8 @@
 package com.huseyin.expensetracker.controllers;
 
 import com.huseyin.expensetracker.models.Transaction;
-import com.huseyin.expensetracker.repositories.TransactionRepository;
-import com.huseyin.expensetracker.repositories.UserRepository;
+import com.huseyin.expensetracker.services.TransactionService;
+import com.huseyin.expensetracker.services.UserService;
 import com.huseyin.expensetracker.factories.FilterFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -20,57 +19,51 @@ import java.util.List;
 public class TransactionController {
 
     @Autowired
-    private TransactionRepository transactionRepository;
+    private TransactionService transactionService;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @GetMapping({"/", "/transactions"})
     public String transactions(@AuthenticationPrincipal UserDetails userDetails, @RequestParam(required = false, name = "filter") String filter, Model model) {
         model.addAttribute("incomeForm", new Transaction());
         model.addAttribute("outcomeForm", new Transaction());
 
-        List<Transaction> transactions;
+        List<Transaction> transactions = transactionService.findByUsername(userDetails.getUsername());
 
-        if (filter == null) {
-            transactions = transactionRepository.findByUsername(userDetails.getUsername());
-        } else {
-            transactions = new FilterFactory().getFilter(filter).meets(transactionRepository.findByUsername(userDetails.getUsername()));
+        if (filter != null) {
+            transactions = new FilterFactory().getFilter(filter).meets(transactions);
         }
 
-        BigDecimal sum = transactions.stream()
-                .map(Transaction::getAmount)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-
         model.addAttribute("transactions", transactions);
-        model.addAttribute("sum", sum);
+        model.addAttribute("sum", transactionService.sum(transactions));
 
         return "transactions";
     }
 
     @PostMapping("/income")
     public String income(@AuthenticationPrincipal UserDetails userDetails, @ModelAttribute("incomeForm") Transaction incomeForm, BindingResult bindingResult) {
-        incomeForm.setUser(userRepository.findByUsername(userDetails.getUsername()));
+        incomeForm.setUser(userService.findByUsername(userDetails.getUsername()));
         incomeForm.setType(Transaction.Type.Income);
         incomeForm.setCreatedAt(new Date());
-        transactionRepository.save(incomeForm);
+        transactionService.save(incomeForm);
 
         return "redirect:/transactions";
     }
 
     @PostMapping("/outcome")
     public String outcome(@AuthenticationPrincipal UserDetails userDetails, @ModelAttribute("outcomeForm") Transaction outcomeForm, BindingResult bindingResult) {
-        outcomeForm.setUser(userRepository.findByUsername(userDetails.getUsername()));
+        outcomeForm.setUser(userService.findByUsername(userDetails.getUsername()));
         outcomeForm.setType(Transaction.Type.Outcome);
         outcomeForm.setCreatedAt(new Date());
-        transactionRepository.save(outcomeForm);
+        transactionService.save(outcomeForm);
 
         return "redirect:/transactions";
     }
 
     @GetMapping(value = "delete/{id}")
     public String delete(@PathVariable Long id) {
-        transactionRepository.deleteById(id);
+        transactionService.deleteById(id);
 
         return "redirect:/transactions";
     }
