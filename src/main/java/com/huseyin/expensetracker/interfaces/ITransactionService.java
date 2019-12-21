@@ -10,6 +10,8 @@ public interface ITransactionService {
 
     void deleteById(Long id);
 
+    List<Transaction> findByDescriptionContaining(String username, String query);
+
     List<Transaction> findByUsername(String username);
 
     BigDecimal sum(List<Transaction> transactions);

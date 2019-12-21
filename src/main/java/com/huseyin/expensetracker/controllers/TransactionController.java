@@ -67,4 +67,13 @@ public class TransactionController {
 
         return "redirect:/transactions";
     }
+
+    @GetMapping("/search")
+    public String search(@AuthenticationPrincipal UserDetails userDetails, @RequestParam(name = "query") String query, Model model) {
+        List<Transaction> transactions = transactionService.findByDescriptionContaining(userDetails.getUsername(), query);
+        model.addAttribute("transactions", transactions);
+        model.addAttribute("sum", transactionService.sum(transactions));
+
+        return "transactions";
+    }
 }

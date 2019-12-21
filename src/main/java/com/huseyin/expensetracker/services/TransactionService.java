@@ -25,6 +25,11 @@ public class TransactionService implements ITransactionService {
     }
 
     @Override
+    public List<Transaction> findByDescriptionContaining(String username, String query) {
+        return transactionRepository.findByDescriptionContaining(username, query);
+    }
+
+    @Override
     public List<Transaction> findByUsername(String username) {
         return transactionRepository.findByUsername(username);
     }
