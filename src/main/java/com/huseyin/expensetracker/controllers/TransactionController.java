@@ -32,7 +32,7 @@ public class TransactionController {
         List<Transaction> transactions = transactionService.findByUsername(userDetails.getUsername());
 
         if (filter != null) {
-            transactions = new FilterFactory().getFilter(filter).meets(transactions);
+            transactions = FilterFactory.getInstance().getFilter(filter).meets(transactions);
         }
 
         model.addAttribute("transactions", transactions);
