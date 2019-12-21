@@ -10,10 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -67,6 +64,13 @@ public class TransactionController {
         outcomeForm.setType(Transaction.Type.Outcome);
         outcomeForm.setCreatedAt(new Date());
         transactionRepository.save(outcomeForm);
+
+        return "redirect:/transactions";
+    }
+
+    @GetMapping(value = "delete/{id}")
+    public String delete(@PathVariable Long id) {
+        transactionRepository.deleteById(id);
 
         return "redirect:/transactions";
     }

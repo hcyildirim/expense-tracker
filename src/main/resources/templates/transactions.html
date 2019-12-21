@@ -57,24 +57,24 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Created At</th>
-                        <th scope="col">Type</th>
                         <th scope="col">Description</th>
                         <th scope="col">Amount</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="transaction: ${transactions}">
                         <td th:text="${transaction.getId()}" />
                         <td th:text="${transaction.getCreatedAt()}" />
-                        <td th:text="${transaction.getType()}" />
                         <td th:text="${transaction.getDescription()}" />
                         <td th:if="${transaction.getAmount() > 0}" class="text-success" th:text="${transaction.getAmount()}" />
                         <td th:if="${transaction.getAmount() < 0}" class="text-danger" th:text="${transaction.getAmount()}" />
+                        <td><a th:href="@{/delete/{id}(id=${transaction.id})}" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i></a></td>
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th colspan="4">Total :</th>
+                        <th colspan="3">Total :</th>
                         <td th:if="${sum > 0}" class="text-white bg-success" th:text="${sum}" />
                         <td th:if="${sum < 0}" class="text-white bg-danger" th:text="${sum}" />
                         <td th:if="${sum == 0}" class="text-white bg-info" th:text="${sum}" />
