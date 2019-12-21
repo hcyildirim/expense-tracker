@@ -42,7 +42,7 @@
             <div class="col-11 p-0">
                 <form th:action="@{/search}" modelAttribute="incomeForm" method="get">
                     <div class="input-group">
-                        <input type="text" class="form-control" name="query" placeholder="Type something to search..." />
+                        <input th:value="${param.query}" type="text" class="form-control" name="query" placeholder="Type something to search..." />
 
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-outline-info">Search</button>
